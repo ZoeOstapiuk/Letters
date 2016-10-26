@@ -1,0 +1,21 @@
+﻿@model IEnumerable<Letters.Models.Letter>
+
+<div class="container">
+    @foreach (Letters.Models.Letter l in Model)
+    {
+        <a href="@Url.Action("Index", l)" class="letter-item-link">
+            <div class="w3-panel w3-card-4 item-letter w3-white">
+                @if (l.Content.Length <= 200)
+                {
+                    @l.Content
+                }
+                else
+                {
+                    @(l.Content.Substring(0, 200) + "...")
+                }
+            </div>
+        </a>
+    }
+</div>
+
+

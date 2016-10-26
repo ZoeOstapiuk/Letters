@@ -1,0 +1,35 @@
+﻿body {
+    background-color: #eeeeee !important;
+    text-align: center;
+}
+
+textarea.letter-sheet {
+    margin: 25px;
+    min-width: 200px;
+    width: 50%;
+    min-height: 400px;
+    resize:none;
+}
+
+footer {
+    margin: 10px;
+}
+
+.item-letter {
+    display: inline-flex !important;
+    padding: 10px;
+    min-height: 100px;
+    max-width: 400px;
+    min-width: 200px;
+    margin: 30px;
+    overflow:auto;
+}
+
+.item-letter:hover {
+    box-shadow: none !important;
+}
+
+.letter-item-link:hover {
+    text-decoration: none;
+}
+

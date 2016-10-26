@@ -1,0 +1,19 @@
+﻿@model Letters.Models.Letter
+
+@{
+    ViewBag.Title = "Welcome";
+}
+
+@using (Html.BeginForm(Model.Content == null || Model.Content == "" ? "AddLetter" : "UpdateLetter", "Home", FormMethod.Post))
+{
+    @Html.Hidden("LetterId")
+    @Html.TextArea("Content", "", new { @class = "letter-sheet" })
+    <br/>
+
+    if (Model.Content != null && Model.Content != "")
+    {
+        @Html.ActionLink("Delete", "DeleteLetter", Model.LetterId, new { @class = "w3-btn w3-hover-red" })
+    }
+
+    <button type="submit" class="w3-btn w3-hover-green">@(Model.Content == null || Model.Content == "" ? "Send" : "Update") </button>
+}
