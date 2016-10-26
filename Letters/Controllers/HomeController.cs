@@ -11,6 +11,8 @@ namespace Letters.Controllers
 {
     public class HomeController : Controller
     {
+        private const int ITEMS_PER_PAGE = 8;
+
         public ActionResult Index()
         {
             return View();
@@ -34,15 +36,17 @@ namespace Letters.Controllers
             return RedirectToAction("AllLetters");
         }
 
-        public ActionResult AllLetters()
+        public ActionResult AllLetters(int page = 1)
         {
-            IEnumerable<object> letters;
+            IEnumerable<Letter> letters;
             using (LettersDbContext ctx = new LettersDbContext())
             {
-                letters = ctx.Letters.ToList();
+                letters = ctx.Letters.OrderBy(l => l.LetterId).Skip((page - 1) * ITEMS_PER_PAGE).Take(ITEMS_PER_PAGE).ToList();
             }
 
-            return View(letters);
+            PageInfo pageInfo = new PageInfo { PageNumber = page, PageSize = ITEMS_PER_PAGE, TotalItems = letters.Count() };
+            IndexViewModel ivm = new IndexViewModel { PageInfo = pageInfo, Letters = letters };
+            return View(ivm);
         }
         
         public ActionResult EditLetter(int? id)

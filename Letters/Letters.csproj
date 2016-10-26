@@ -152,9 +152,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\PagingHelpers.cs" />
     <Compile Include="Models\Author.cs" />
     <Compile Include="Models\Letter.cs" />
     <Compile Include="Models\LettersDbContext.cs" />
+    <Compile Include="Models\PaginationInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
