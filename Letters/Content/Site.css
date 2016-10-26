@@ -29,7 +29,11 @@ footer {
     box-shadow: none !important;
 }
 
-.letter-item-link:hover {
-    text-decoration: none;
+.welcome-text {
+    font-family: "Tangerine", serif;
+}
+
+.item-letter-container {
+    display: inline-flex !important;
 }
 

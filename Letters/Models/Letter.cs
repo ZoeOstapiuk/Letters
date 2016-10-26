@@ -10,5 +10,7 @@ namespace Letters.Models
         public int LetterId { get; set; }
 
         public string Content { get; set; }
+
+        // public Author Author { get; set; }
     }
 }

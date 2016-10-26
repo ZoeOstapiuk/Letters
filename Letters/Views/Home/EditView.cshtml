@@ -1,0 +1,14 @@
+﻿@model Letters.Models.Letter
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.Hidden("LetterID", Model.LetterId)
+    @Html.TextArea("Content", Model.Content, new { @class = "letter-sheet" })
+    <br/>
+    <button type="submit" class="w3-btn w3-hover-green">Save changes</button>
+}
+
