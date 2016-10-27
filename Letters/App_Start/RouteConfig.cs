@@ -20,6 +20,12 @@ namespace Letters
             );
 
             routes.MapRoute(
+                name: "Paging",
+                url: "SantasArchive/{page}",
+                defaults: new { controller = "Home", action = "AllLetters", page = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }

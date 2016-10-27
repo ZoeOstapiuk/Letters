@@ -7,8 +7,11 @@
 @using (Html.BeginForm())
 {
     @Html.Hidden("LetterID", Model.LetterId)
-    @Html.TextArea("Content", Model.Content, new { @class = "letter-sheet" })
+    @Html.TextAreaFor(m => m.Content, new { @class = "letter-sheet" })
+    <br />
+    @Html.ValidationMessageFor(m => m.Content)
     <br/>
+    @Html.ActionLink("Go back", "AllLetters", "Home", null, new { @class = "w3-btn w3-hover-green" })
     <button type="submit" class="w3-btn w3-hover-green">Save changes</button>
 }
 

@@ -1,0 +1,16 @@
+﻿@model Letters.Models.Letter
+
+@{
+    ViewBag.Title = "Create";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.Hidden("LetterID")
+    @Html.TextAreaFor(m => m.Content, new { @class = "letter-sheet" })
+    <br />
+    @Html.ValidationMessageFor(m => m.Content)
+    <br/>
+    <button type="submit" class="w3-btn w3-hover-green">Send</button>
+}
+
