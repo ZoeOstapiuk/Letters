@@ -10,9 +10,9 @@ namespace Letters.Models
     {
         public int LetterId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Write something!")]
         public string Content { get; set; }
-
-        // public Author Author { get; set; }
+        
+        public Author Author { get; set; }
     }
 }

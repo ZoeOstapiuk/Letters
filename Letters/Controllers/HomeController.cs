@@ -14,11 +14,11 @@ namespace Letters.Controllers
             return View();
         }
         
-        public ActionResult AllLetters(int page = 1)
+        public ActionResult AllAuthors(int page = 1)
         {
             IEnumerable<Letter> letters;
             PageInfo pageInfo = new PageInfo { PageNumber = page, PageSize = ITEMS_PER_PAGE };
-            using (LettersDbContext ctx = new LettersDbContext())
+            using (SantaDbContext ctx = new SantaDbContext())
             {
                 letters = ctx.Letters.OrderBy(l => l.LetterId).Skip((page - 1) * ITEMS_PER_PAGE).Take(ITEMS_PER_PAGE).ToList();
                 pageInfo.TotalItems = ctx.Letters.Count();

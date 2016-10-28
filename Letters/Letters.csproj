@@ -154,19 +154,11 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\PagingHelpers.cs" />
-    <Compile Include="Migrations\201610251939491_InitialCreate.cs" />
-    <Compile Include="Migrations\201610251939491_InitialCreate.Designer.cs">
-      <DependentUpon>201610251939491_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201610272030577_RequiredContent.cs" />
-    <Compile Include="Migrations\201610272030577_RequiredContent.Designer.cs">
-      <DependentUpon>201610272030577_RequiredContent.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Author.cs" />
     <Compile Include="Models\Letter.cs" />
-    <Compile Include="Models\LettersDbContext.cs" />
+    <Compile Include="Models\LetterAuthorView.cs" />
     <Compile Include="Models\PaginationInfo.cs" />
+    <Compile Include="Models\SantaDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -182,8 +174,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="scripts\jquery-1.10.2.min.map" />
-    <Content Include="Views\Home\AllLetters.cshtml" />
-    <Content Include="Views\Letters\CreateLetter.cshtml" />
+    <Content Include="Views\Home\AllAuthors.cshtml" />
+    <Content Include="Views\Letters\CreateLetterWithAuthor.cshtml" />
     <Content Include="Views\Letters\EditView.cshtml" />
     <Content Include="Views\Letters\DeleteLetter.cshtml" />
     <None Include="Web.Debug.config">
@@ -195,14 +187,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201610251939491_InitialCreate.resx">
-      <DependentUpon>201610251939491_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610272030577_RequiredContent.resx">
-      <DependentUpon>201610272030577_RequiredContent.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

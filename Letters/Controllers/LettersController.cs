@@ -1,4 +1,6 @@
-﻿using Letters.Models;
+﻿
+using Letters.Models;
+using System.Diagnostics;
 using System.Net;
 using System.Web.Mvc;
 
@@ -6,26 +8,41 @@ namespace Letters.Controllers
 {
     public class LettersController : Controller
     {
-        public ActionResult CreateLetter()
+        public ActionResult CreateLetterWithAuthor()
         {
-            return View(new Letter());
+            LetterAuthorView view = new LetterAuthorView
+            {
+                Letter = new Letter(),
+                Author = new Author()
+            };
+            return View(view);
         }
 
         [HttpPost]
-        public ActionResult CreateLetter(Letter letter)
+        public ActionResult CreateLetterWithAuthor(LetterAuthorView viewModel)
         {
             if (!ModelState.IsValid)
             {
-                return View(letter);
+                // If smth is wrong go back
+                return View(viewModel);
             }
 
-            using (LettersDbContext ctx = new LettersDbContext())
+            if (viewModel.Author == null || viewModel.Letter == null)
             {
-                ctx.Letters.Add(letter);
+                return View("~/Views/Home/Index");
+            }
+
+            using (SantaDbContext ctx = new SantaDbContext())
+            {
+                viewModel.Author.Letters.Add(viewModel.Letter);
+                viewModel.Letter.Author = viewModel.Author;
+
+                // Author is added automatically
+                ctx.Letters.Add(viewModel.Letter);
                 ctx.SaveChanges();
             }
 
-            return RedirectToAction("AllLetters", "Home");
+            return RedirectToAction("AllAuthors", "Home");
         }
 
         public ActionResult EditLetter(int? id)
@@ -36,7 +53,7 @@ namespace Letters.Controllers
             }
 
             Letter letter;
-            using (LettersDbContext ctx = new LettersDbContext())
+            using (SantaDbContext ctx = new SantaDbContext())
             {
                 letter = ctx.Letters.Find(id.Value);
             }
@@ -57,13 +74,13 @@ namespace Letters.Controllers
                 return View(letter);
             }
 
-            using (LettersDbContext ctx = new LettersDbContext())
+            using (SantaDbContext ctx = new SantaDbContext())
             {
                 ctx.Letters.Find(letter.LetterId).Content = letter.Content;
                 ctx.SaveChanges();
             }
 
-            return RedirectToAction("AllLetters", "Home");
+            return RedirectToAction("AllAuthors", "Home");
         }
 
         public ActionResult DeleteLetter(int? id)
@@ -74,7 +91,7 @@ namespace Letters.Controllers
             }
 
             Letter letter;
-            using (LettersDbContext ctx = new LettersDbContext())
+            using (SantaDbContext ctx = new SantaDbContext())
             {
                 letter = ctx.Letters.Find(id.Value);
             }
@@ -90,13 +107,13 @@ namespace Letters.Controllers
         [HttpPost]
         public ActionResult DeleteLetter(int id)
         {
-            using (LettersDbContext ctx = new LettersDbContext())
+            using (SantaDbContext ctx = new SantaDbContext())
             {
                 ctx.Letters.Remove(ctx.Letters.Find(id));
                 ctx.SaveChanges();
             }
 
-            return RedirectToAction("AllLetters", "Home");
+            return RedirectToAction("AllAuthors", "Home");
         }
     }
 }

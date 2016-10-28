@@ -1,0 +1,40 @@
+﻿@model Letters.Models.LetterAuthorView
+
+@{
+    ViewBag.Title = "Create";
+}
+<div class="w3-container">
+    <div class="w3-card-4">
+        @using (Html.BeginForm("CreateLetterWithAuthor"))
+        {
+            @Html.Hidden("Author.AuthorId")
+            <p>
+                @Html.TextBox("Author.Name", "", new { @class = "w3-input" })
+                <label>Name*</label>
+                @Html.ValidationMessageFor(m => m.Author.Name)
+            </p>
+            <p>
+                @Html.TextBox("Author.Email", "", new { @class = "w3-input" })
+                <label>Email*</label>
+                @Html.ValidationMessageFor(m => m.Author.Email)
+            </p>
+            <p>
+                @Html.TextBox("Author.Addres", "", new { @class = "w3-input" })
+                <label>Address*</label>
+                @Html.ValidationMessageFor(m => m.Author.Address)
+            </p>
+            <p>
+                <input type="number" name="Author.Age" min="0" />
+                <label>Your age</label>
+            </p>
+            <hr/>
+            @Html.Hidden("Letter.LetterID")
+            @Html.TextAreaFor(m => m.Letter.Content, new { @class = "letter-sheet" })
+            <br />
+            @Html.ValidationMessageFor(m => m.Letter.Content)
+            <br />
+            <button type="submit" class="w3-btn w3-hover-green">Send</button>
+        }
+    </div>
+</div>
+
