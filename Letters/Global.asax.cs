@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Letters.Models;
+using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -13,6 +15,7 @@ namespace Letters
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            Database.SetInitializer<SantaDbContext>(new SantaDbInitializer());
         }
     }
 }

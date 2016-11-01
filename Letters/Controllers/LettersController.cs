@@ -42,7 +42,7 @@ namespace Letters.Controllers
                 ctx.SaveChanges();
             }
 
-            return RedirectToAction("AllAuthors", "Home");
+            return RedirectToAction("AllLetters", "Home");
         }
 
         public ActionResult EditLetter(int? id)

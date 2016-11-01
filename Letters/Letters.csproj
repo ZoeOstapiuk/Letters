@@ -159,6 +159,7 @@
     <Compile Include="Models\LetterAuthorView.cs" />
     <Compile Include="Models\PaginationInfo.cs" />
     <Compile Include="Models\SantaDbContext.cs" />
+    <Compile Include="Models\SantaDbInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -174,7 +175,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="scripts\jquery-1.10.2.min.map" />
-    <Content Include="Views\Home\AllAuthors.cshtml" />
+    <Content Include="Views\Home\AllLetters.cshtml" />
     <Content Include="Views\Letters\CreateLetterWithAuthor.cshtml" />
     <Content Include="Views\Letters\EditView.cshtml" />
     <Content Include="Views\Letters\DeleteLetter.cshtml" />

@@ -25,11 +25,11 @@ namespace Letters.Helpers
                 tag.AddCssClass("paging-button");
                 if (i + 1 == pageInfo.PageNumber)
                 {
-                    tag.AddCssClass("w3-yellow");
+                    tag.AddCssClass("w3-green");
                 }
                 else
                 {
-                    tag.AddCssClass("w3-pale-yellow");
+                    tag.AddCssClass("w3-pale-green");
                 }
 
                 result.Append(tag.ToString());

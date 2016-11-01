@@ -22,7 +22,7 @@ namespace Letters
             routes.MapRoute(
                 name: "Paging",
                 url: "SantasArchive/{page}",
-                defaults: new { controller = "Home", action = "AllAuthors", page = UrlParameter.Optional }
+                defaults: new { controller = "Home", action = "AllLetters", page = UrlParameter.Optional }
             );
 
             routes.MapRoute(

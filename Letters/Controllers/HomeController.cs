@@ -14,7 +14,7 @@ namespace Letters.Controllers
             return View();
         }
         
-        public ActionResult AllAuthors(int page = 1)
+        public ActionResult AllLetters(int page = 1)
         {
             IEnumerable<Letter> letters;
             PageInfo pageInfo = new PageInfo { PageNumber = page, PageSize = ITEMS_PER_PAGE };

@@ -1,12 +1,12 @@
-﻿body {
-    background-color: #eeeeee !important;
-    text-align: center;
+﻿.main-theme {
+    background-color: #95bb85 !important;
+    text-align: center !important;
 }
 
 textarea.letter-sheet {
     margin: 25px;
     min-width: 200px;
-    width: 50%;
+    width: 90%;
     min-height: 400px;
     resize:none;
 }
@@ -41,8 +41,26 @@ footer {
     text-decoration: none !important;
 }
 
-.field-validation-error {
-    padding-top: 5px;
-    padding-bottom: 50px;
+.input-field {
+    margin-top: 15px !important;
+    margin: auto;
+}
+
+.form-card {
+    display: inline-block;
+    margin: auto;
+    margin-bottom: 25px !important;
+    border-color: black !important;
+    border-radius: 40px !important;
+    background-color: rgba(255, 255, 255, 0.25) !important;
+}
+
+.table-for-letter {
+    text-align:center;
+    padding: 20px;
+    margin-bottom: 25px !important;
+    border-color: black !important;
+    border-radius: 40px !important;
+    background-color: rgba(255, 255, 255, 0.25) !important;
 }
 

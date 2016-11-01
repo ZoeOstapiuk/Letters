@@ -3,38 +3,54 @@
 @{
     ViewBag.Title = "Create";
 }
+
 <div class="w3-container">
-    <div class="w3-card-4">
-        @using (Html.BeginForm("CreateLetterWithAuthor"))
-        {
-            @Html.Hidden("Author.AuthorId")
-            <p>
-                @Html.TextBox("Author.Name", "", new { @class = "w3-input" })
-                <label>Name*</label>
-                @Html.ValidationMessageFor(m => m.Author.Name)
-            </p>
-            <p>
-                @Html.TextBox("Author.Email", "", new { @class = "w3-input" })
-                <label>Email*</label>
-                @Html.ValidationMessageFor(m => m.Author.Email)
-            </p>
-            <p>
-                @Html.TextBox("Author.Addres", "", new { @class = "w3-input" })
-                <label>Address*</label>
-                @Html.ValidationMessageFor(m => m.Author.Address)
-            </p>
-            <p>
-                <input type="number" name="Author.Age" min="0" />
-                <label>Your age</label>
-            </p>
-            <hr/>
+    @using (Html.BeginForm("CreateLetterWithAuthor"))
+    {
+        <div class="col-lg-4">
+            <div class="w3-card-4 form-card">
+                <div class="w3-container w3-green">
+                    <h2>Your info</h2>
+                </div>
+                <div style="padding: 20px;">
+                    @Html.Hidden("Author.AuthorId")
+                    <p>
+                        @Html.TextBox("Author.Name", "", new { @class = "w3-input w3-border w3-round-xxlarge input-field", placeholder = "Enter your name..." })
+                        <label>Name<sup>*</sup></label>
+                        @Html.ValidationMessageFor(m => m.Author.Name)
+                    </p>
+                    <p>
+                        @Html.TextBox("Author.Email", "", new { @class = "w3-input w3-border w3-round-xxlarge input-field", placeholder = "Enter email..." })
+                        <label>Email<sup>*</sup></label>
+                        @Html.ValidationMessageFor(m => m.Author.Email)
+                    </p>
+                    <p>
+                        @Html.TextBox("Author.Address", "", new { @class = "w3-input w3-border w3-round-xxlarge input-field", placeholder = "Enter your address..." })
+                        <label>Address<sup>*</sup></label>
+                        @Html.ValidationMessageFor(m => m.Author.Address)
+                    </p>
+                    <p>
+                        <input type="number" name="Author.Age" min="0" class="w3-input w3-border w3-round-xxlarge input-field" />
+                        <label>Your age<sup>*</sup></label>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8">
             @Html.Hidden("Letter.LetterID")
-            @Html.TextAreaFor(m => m.Letter.Content, new { @class = "letter-sheet" })
-            <br />
-            @Html.ValidationMessageFor(m => m.Letter.Content)
-            <br />
-            <button type="submit" class="w3-btn w3-hover-green">Send</button>
-        }
-    </div>
+            <div class="w3-card-4 table-for-letter">
+                <div class="w3-container w3-green w3-round-xxlarge">
+                    <h2>Dear Santa...</h2>
+                </div>
+                <div>
+                    @Html.TextAreaFor(m => m.Letter.Content, new { @class = "letter-sheet", placeholder = "This whole year I tried to be good..." })
+                    <br />
+                    @Html.ValidationMessageFor(m => m.Letter.Content)
+                </div>
+            </div>
+        </div>
+        <br/> <br /> <br />
+        <button type="submit" class="w3-btn w3-hover-green">Send</button>
+    }
 </div>
 
