@@ -23,6 +23,14 @@ namespace Letters.Models
         public string Email { get; set; }
 
         public int Age { get; set; }
+
+        public int TotalLetters
+        {
+            get
+            {
+                return Letters.Count;
+            }
+        }
         
         public ICollection<Letter> Letters { get; set; }
     }

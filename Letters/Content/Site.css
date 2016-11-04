@@ -18,11 +18,11 @@ footer {
 .item-letter {
     display: inline-flex !important;
     padding: 10px;
-    min-height: 100px;
-    max-width: 400px;
+    min-height: 150px;
+    max-width: 450px;
     min-width: 200px;
     margin: 30px;
-    overflow:auto;
+    overflow: hidden !important;
 }
 
 .item-letter:hover {
@@ -35,6 +35,7 @@ footer {
 
 .item-letter-container {
     display: inline-flex !important;
+    overflow: hidden !important;
 }
 
 .paging-button:hover {
@@ -62,5 +63,9 @@ footer {
     border-color: black !important;
     border-radius: 40px !important;
     background-color: rgba(255, 255, 255, 0.25) !important;
+}
+
+.form-card:hover, .table-for-letter:hover {
+    background-color: rgba(255, 255, 255, 0.4) !important;
 }
 

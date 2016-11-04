@@ -115,5 +115,28 @@ namespace Letters.Controllers
 
             return RedirectToAction("AllAuthors", "Home");
         }
+        
+        public ActionResult ViewLetter(int? id)
+        {
+            if (!id.HasValue)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Letter letter = null;
+            Author author = null;
+            using (SantaDbContext ctx = new SantaDbContext())
+            {
+                letter = ctx.Letters.Find(id.Value);
+                author = letter.Author;
+            }
+
+            if (letter == null || author == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View("ReadonlyLetter", new LetterAuthorView { Letter = letter, Author = author });
+        }
     }
 }
