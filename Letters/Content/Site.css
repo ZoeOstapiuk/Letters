@@ -48,7 +48,7 @@ footer {
 }
 
 .form-card {
-    display: inline-block;
+    display: inline-flex;
     margin: auto;
     margin-bottom: 25px !important;
     border-color: black !important;
@@ -69,3 +69,15 @@ footer {
     background-color: rgba(255, 255, 255, 0.4) !important;
 }
 
+.letter-author-container {
+    text-align: center !important;
+    background-color: rgba(255, 255, 255, 0.2) !important;
+    padding: 20px !important;
+    padding-top: 10px !important;
+}
+
+.letter-author-container div button {
+    margin-top: 5px !important;
+    margin-bottom: 10px !important;
+    margin-right: 20px !important;
+}

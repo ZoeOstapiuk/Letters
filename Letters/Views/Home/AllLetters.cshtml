@@ -3,7 +3,21 @@
 
 @model IndexViewModel
 
-<div class="container">
+<script type="text/javascript">
+    function onSuccess(data) {
+        document.getElementById("page-letters-container").classList.add("col-lg-6");
+
+        document.getElementById("result").style.display = "block";
+        document.getElementById("result").classList.add("col-lg-6");
+    }
+    function hideAuthorLetter() {
+        document.getElementById("page-letters-container").classList.remove("col-lg-6");
+
+        document.getElementById("result").style.display = "none";
+    }
+</script>
+
+<div class="container" id="page-letters-container">
     @foreach (Letter l in Model.Letters)
     {
         <div class="item-letter-container">
@@ -17,7 +31,15 @@
                     @(l.Content.Substring(0, 200) + "...")
                 }
             </div>
-            <a href="@Url.Action("ViewLetter", "Letters", new { id = l.LetterId })" class="w3-btn-floating w3-green"><span class="glyphicon glyphicon-eye-open"/></a>
+            <br/>
+            @{
+                var lnk = Ajax.ActionLink("T", "ViewLetter", "Letters", new { id = l.LetterId }, new AjaxOptions
+                {
+                    UpdateTargetId = "result",
+                    OnSuccess = "onSuccess"
+                }, new { @class = "w3-btn-floating w3-green" });
+                @Html.Raw(lnk.ToString().Replace(">T<", "><span class='glyphicon glyphicon-eye-open'/><"));
+            }
             <!--<a href="@Url.Action("EditLetter", "Letters", new { id = l.LetterId })" class="w3-btn-floating w3-green"><span class="glyphicon glyphicon-pencil"/></a>-->
             <!--<a href="@Url.Action("DeleteLetter", "Letters", new { id = l.LetterId })" class="w3-btn-floating w3-red"><span class="glyphicon glyphicon-remove" /></a>-->
         </div>
@@ -27,5 +49,7 @@
         @Html.PageLinks(Model.PageInfo, x => Url.Action("AllLetters", new { page = x + 1 }))
     </div>
 </div>
+<div id="result">
+</div> 
 
 

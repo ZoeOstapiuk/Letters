@@ -1,35 +1,30 @@
 ﻿@model Letters.Models.LetterAuthorView
 
-@{
-    ViewBag.Title = "Letter #" + Model.Letter.LetterId.ToString();
-}
-
-<div class="col-lg-3">
-    <div class="w3-card-4 form-card">
-        <div class="w3-container w3-green">
-            <h2>Sender</h2>
+<div class="w3-round-xxlarge w3-card-4 letter-author-container">
+    <div class="text-right"><button class="w3-btn w3-red" onclick="hideAuthorLetter()"><span class="glyphicon glyphicon-remove" /></button></div>
+    <div>
+        <div class="w3-card-4 form-card">
+            <div class="w3-container w3-green">
+                <h2>Sender</h2>
+            </div>
+            <div style="padding: 10px; display:inline-flex">
+                <p>
+                    Name: @Html.TextBoxFor(m => m.Author.Name, "", new { @class = "w3-input w3-border w3-round-xxlarge input-field", @readonly = "readonly" })
+                </p>
+                <p>
+                    Age: @Html.TextBoxFor(m => m.Author.Age, "", new { @class = "w3-input w3-border w3-round-xxlarge input-field", @readonly = "readonly" })
+                </p>
+                <p>
+                    Letters written: @Html.TextBoxFor(m => m.Author.TotalLetters, "", new { @class = "w3-input w3-border w3-round-xxlarge input-field", @readonly = "readonly" })
+                </p>
+            </div>
         </div>
-        <div style="padding: 20px;">
-            <p>
-                Name: @Html.TextBoxFor(m => m.Author.Name, "", new { @class = "w3-input w3-border w3-round-xxlarge input-field", @readonly = "readonly" })
-            </p>
-            <p>
-                Age: @Html.TextBoxFor(m => m.Author.Age, "", new { @class = "w3-input w3-border w3-round-xxlarge input-field", @readonly = "readonly" })
-            </p>
-            <p>
-                Letters written: @Html.TextBoxFor(m => m.Author.TotalLetters, "", new { @class = "w3-input w3-border w3-round-xxlarge input-field", @readonly = "readonly" })
-            </p>
-        </div>
-    </div>
-</div>
-<div class="col-lg-9">
-    <div class="w3-card-4 table-for-letter">
-        <div>
-            @Html.TextAreaFor(m => m.Letter.Content, new { @class = "letter-sheet", @readonly = "readonly" })
+        <div class="w3-card-4 table-for-letter">
+            <div>
+                @Html.TextAreaFor(m => m.Letter.Content, new { @class = "letter-sheet", @readonly = "readonly" })
+            </div>
         </div>
     </div>
 </div>
-
-@Html.ActionLink("Go back", "AllLetters", "Home", null, new { @class = "w3-btn w3-hover-green" })
 
 

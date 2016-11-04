@@ -136,7 +136,7 @@ namespace Letters.Controllers
                 return HttpNotFound();
             }
 
-            return View("ReadonlyLetter", new LetterAuthorView { Letter = letter, Author = author });
+            return PartialView("ReadonlyLetter", new LetterAuthorView { Letter = letter, Author = author });
         }
     }
 }
