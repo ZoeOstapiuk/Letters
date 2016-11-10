@@ -1,7 +1,9 @@
 ﻿
+using Letters.Infrastructure;
 using Letters.Models;
 using System.Diagnostics;
 using System.Net;
+using System.Net.Mail;
 using System.Web.Mvc;
 
 namespace Letters.Controllers
@@ -32,6 +34,17 @@ namespace Letters.Controllers
                 return View("~/Views/Home/Index");
             }
 
+            try
+            {
+                TempMailSender.SendTo(viewModel.Author.Email, "YOU SEND A LETTER TO SANTA",
+                    "Check other emails: <a>" + Url.Action("AllLetters", "Home") + "</a>");
+            }
+            catch
+            {
+                TempData["mail-error"] = "The email you entered is not valid or does not exist! We couldn't send you anything!";
+                return View(viewModel);
+            }
+
             using (SantaDbContext ctx = new SantaDbContext())
             {
                 viewModel.Author.Letters.Add(viewModel.Letter);
@@ -42,6 +55,7 @@ namespace Letters.Controllers
                 ctx.SaveChanges();
             }
 
+            TempData["message"] = "A message was sent to your email!\nSanta will check your behavior ASAP!";
             return RedirectToAction("AllLetters", "Home");
         }
 

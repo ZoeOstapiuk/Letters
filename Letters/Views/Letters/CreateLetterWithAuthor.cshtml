@@ -5,6 +5,13 @@
 }
 
 <div class="w3-container">
+    @if (TempData["mail-error"] != null)
+    {
+        <div id="alert-santa-reply" class="w3-round-xxlarge w3-transparent w3-card-8" style="margin: 20px;">
+            <div style="display: inline-block" class="w3-panel">@TempData["mail-error"]</div>
+            <a onclick="hideAlert()"><span class="glyphicon glyphicon-remove" /></a>
+        </div>
+    }
     @using (Html.BeginForm("CreateLetterWithAuthor"))
     {
         <div class="col-lg-4">

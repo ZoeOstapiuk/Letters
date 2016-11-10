@@ -21,6 +21,7 @@ namespace Letters.Helpers
                 tag.MergeAttribute("href", pageUrl(i));
                 tag.InnerHtml = (i + 1).ToString();
 
+                tag.Attributes["style"] = "margin:2px";
                 tag.AddCssClass("w3-btn-floating");
                 tag.AddCssClass("paging-button");
                 if (i + 1 == pageInfo.PageNumber)

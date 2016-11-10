@@ -24,7 +24,11 @@ namespace Letters.Controllers
                 pageInfo.TotalItems = ctx.Letters.Count();
             }
 
-            IndexViewModel ivm = new IndexViewModel { PageInfo = pageInfo, Letters = letters };
+            IndexViewModel ivm = new IndexViewModel
+            {
+                PageInfo = pageInfo,
+                Letters = letters
+            };
             return View(ivm);
         }
     }

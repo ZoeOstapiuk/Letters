@@ -4,24 +4,55 @@
 @model IndexViewModel
 
 <script type="text/javascript">
-    function onSuccess(data) {
-        document.getElementById("page-letters-container").classList.add("col-lg-6");
+    $(document).ready(function () {
+        $(".item-letter-container").mouseenter(function () {
+            $(this).css({ border: '' }).animate({ borderRadius: 0 }, 200);
+        }).mouseleave(function () {
+            $(this).css({ border: '' }).animate({ borderRadius: 70 }, 200);
+        });
+    });
 
-        document.getElementById("result").style.display = "block";
-        document.getElementById("result").classList.add("col-lg-6");
+    function showData(data){
+        $("#result").html(data);
+        $("#result").show("slide", { direction: 'right' }, 500);
     }
-    function hideAuthorLetter() {
-        document.getElementById("page-letters-container").classList.remove("col-lg-6");
 
-        document.getElementById("result").style.display = "none";
+    function onSuccess(data) {
+        if (document.getElementById("result").className.indexOf("col-lg-6") != -1) {
+            // #result is opened
+            $("#result").hide("slide", { direction: 'right' }, 500, function() {
+                $("#result").html(data);
+                $("#result").show("slide", { direction: 'right' }, 500);
+            });
+        }
+        else {
+            document.getElementById("page-letters-container").classList.add("col-lg-6");
+            document.getElementById("result").classList.add("col-lg-6");
+            showData(data);
+        }
+    }
+
+    function hideAuthorLetter() {
+        $("#result").hide("slide", { direction: 'right' }, 500,
+        function () {
+            document.getElementById("page-letters-container").classList.remove("col-lg-6");
+            document.getElementById("result").classList.remove("col-lg-6");
+        });
     }
 </script>
-
 <div class="container" id="page-letters-container">
+    @if (TempData["message"] != null)
+    {
+        <div id="alert-santa-reply" class="w3-round-xxlarge w3-transparent w3-card-8" style="margin: 20px;">
+            <div style="display: inline-block" class="w3-panel">@TempData["message"]</div>
+            <a onclick="hideAlert()"><span class="glyphicon glyphicon-remove" /></a>
+        </div>
+    }
+
     @foreach (Letter l in Model.Letters)
     {
-        <div class="item-letter-container">
-            <div class="w3-panel w3-card-4 item-letter w3-pale-green w3-leftbar w3-border-green">
+        <div class="item-letter-container w3-card-2">
+            <div class="item-letter">
                 @if (l.Content.Length <= 200)
                 {
                     @l.Content
@@ -31,25 +62,22 @@
                     @(l.Content.Substring(0, 200) + "...")
                 }
             </div>
-            <br/>
+            <br />
             @{
                 var lnk = Ajax.ActionLink("T", "ViewLetter", "Letters", new { id = l.LetterId }, new AjaxOptions
                 {
-                    UpdateTargetId = "result",
                     OnSuccess = "onSuccess"
-                }, new { @class = "w3-btn-floating w3-green" });
+                }, new { @class = "btn btn-success btn-circle" });
                 @Html.Raw(lnk.ToString().Replace(">T<", "><span class='glyphicon glyphicon-eye-open'/><"));
             }
-            <!--<a href="@Url.Action("EditLetter", "Letters", new { id = l.LetterId })" class="w3-btn-floating w3-green"><span class="glyphicon glyphicon-pencil"/></a>-->
-            <!--<a href="@Url.Action("DeleteLetter", "Letters", new { id = l.LetterId })" class="w3-btn-floating w3-red"><span class="glyphicon glyphicon-remove" /></a>-->
         </div>
     }
-    <br/>
-    <div class="btn-group">
-        @Html.PageLinks(Model.PageInfo, x => Url.Action("AllLetters", new { page = x + 1 }))
-    </div>
 </div>
 <div id="result">
-</div> 
+</div>
+<div class="btn-group">
+    @Html.PageLinks(Model.PageInfo, x => Url.Action("AllLetters", new { page = x + 1 }))
+</div>
+
 
 
