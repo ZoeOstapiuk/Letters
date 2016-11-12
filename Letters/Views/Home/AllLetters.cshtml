@@ -32,47 +32,49 @@
         });
     }
 </script>
-<div class="container" id="page-letters-container">
-    @if (TempData["message"] != null)
-    {
-        <div id="alert-santa-reply" class="w3-round-xxlarge w3-transparent w3-card-8" style="margin: 20px;">
-            <div style="display: inline-block" class="w3-panel">@TempData["message"]</div>
-            <a onclick="hideAlert()"><span class="glyphicon glyphicon-remove" /></a>
-        </div>
-    }
+<div class="outer-page-letters-container">
+    <div class="page-letters-container">
+        @if (TempData["message"] != null)
+        {
+            <div id="alert-santa-reply" class="w3-round-xxlarge w3-transparent w3-card-8" style="margin: 20px;">
+                <div style="display: inline-block" class="w3-panel">@TempData["message"]</div>
+                <a onclick="hideAlert()"><span class="glyphicon glyphicon-remove" /></a>
+            </div>
+        }
 
-    @for (int i = 0; i < Model.Letters.Count; i++)
-    {
-        <div class="item-letter-container w3-card-2" id="id-to-replace">
-            <script>
+        @for (int i = 0; i < Model.Letters.Count; i++)
+        {
+            <div class="item-letter-container w3-card-2" id="id-to-replace">
+                <script>
                 $("#id-to-replace").attr('id', (gLettersCounter).toString());
-            </script>
-            <div class="item-letter-with-link">
-                <div class="item-letter">
-                    @if (Model.Letters[i].Content.Length <= 200)
+                </script>
+                <div class="item-letter-with-link">
+                    <div class="item-letter">
+                        @if (Model.Letters[i].Content.Length <= 200)
                 {
-                        @Model.Letters[i].Content
-                    }
-                    else
-                    {
-                        @(Model.Letters[i].Content.Substring(0, 200) + "...")
+                            @Model.Letters[i].Content
+                        }
+                        else
+                        {
+                            @(Model.Letters[i].Content.Substring(0, 200) + "...")
+                        }
+                    </div>
+                    @{
+                        var lnk = Ajax.ActionLink("T", "ViewLetter", "Letters", new { id = Model.Letters[i].LetterId }, new AjaxOptions
+                        {
+                            OnSuccess = "onSuccess(data, 'result-" + i + "', xhr)"
+                        }, new { @class = "btn btn-success" });
+                        @Html.Raw(lnk.ToString().Replace(">T<", "><span class='glyphicon glyphicon-resize-full'/><"));
                     }
                 </div>
-                @{
-                    var lnk = Ajax.ActionLink("T", "ViewLetter", "Letters", new { id = Model.Letters[i].LetterId }, new AjaxOptions
-                    {
-                        OnSuccess = "onSuccess(data, 'result-" + i + "', xhr)"
-                    }, new { @class = "btn btn-success" });
-                    @Html.Raw(lnk.ToString().Replace(">T<", "><span class='glyphicon glyphicon-resize-full'/><"));
-                }
-            </div>
-            <div id="result" class="showablePart">
-            </div>
-            <script>
+                <div id="result" class="showablePart">
+                </div>
+                <script>
                 $("#result").attr('id', 'result-' + (gLettersCounter++).toString());
-            </script>
-        </div>
-    }
+                </script>
+            </div>
+        }
+    </div>
 </div>
 <div class="btn-group">
     @Html.PageLinks(Model.PageInfo, x => Url.Action("AllLetters", new { page = x + 1 }))
