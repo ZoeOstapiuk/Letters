@@ -1,7 +1,7 @@
 ﻿@model Letters.Models.LetterAuthorView
 
-<div class="w3-round-xxlarge w3-card-4 letter-author-container">
-    <div class="text-right"><button class="w3-btn w3-red" onclick="hideAuthorLetter()"><span class="glyphicon glyphicon-remove" /></button></div>
+<div class="w3-round-xxlarge letter-author-container">
+    <div class="text-right"><button class="btn btn-danger" onclick="hideAuthorLetter($(this).parents('.showablePart'))"><span class="glyphicon glyphicon-resize-small" /></button></div>
     <div>
         <div class="w3-card-4 form-card">
             <div class="w3-container w3-green">

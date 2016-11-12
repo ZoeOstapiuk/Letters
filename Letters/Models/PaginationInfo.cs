@@ -27,7 +27,7 @@ namespace Letters.Models
 
     public class IndexViewModel
     {
-        public IEnumerable<Letter> Letters { get; set; }
+        public IList<Letter> Letters { get; set; }
 
         public PageInfo PageInfo { get; set; }
     }

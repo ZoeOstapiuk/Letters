@@ -4,39 +4,31 @@
 @model IndexViewModel
 
 <script type="text/javascript">
+    var gLettersCounter = 0;
+
     $(document).ready(function () {
         $(".item-letter-container").mouseenter(function () {
-            $(this).css({ border: '' }).animate({ borderRadius: 0 }, 200);
+            $(this).css({ border: '' }).animate({ borderBottomLeftRadius: 0, borderBottomRightRadius: 0 }, 200);
         }).mouseleave(function () {
-            $(this).css({ border: '' }).animate({ borderRadius: 70 }, 200);
+            $(this).css({ border: '' }).animate({ borderBottomLeftRadius: 70, borderBottomRightRadius: 70 }, 200);
         });
     });
 
-    function showData(data){
-        $("#result").html(data);
-        $("#result").show("slide", { direction: 'right' }, 500);
+    function onSuccess(data, id, xhr) {
+        var completeId = "#" + id;
+
+        $(completeId).siblings(".item-letter-with-link").hide("slide", { direction: 'up' }, 500, function () {
+            $(completeId).parent().addClass("col-lg-12");
+            $(completeId).html(data);
+            $(completeId).show("slide", { direction: 'up' }, 500);
+        });
     }
 
-    function onSuccess(data) {
-        if (document.getElementById("result").className.indexOf("col-lg-6") != -1) {
-            // #result is opened
-            $("#result").hide("slide", { direction: 'right' }, 500, function() {
-                $("#result").html(data);
-                $("#result").show("slide", { direction: 'right' }, 500);
-            });
-        }
-        else {
-            document.getElementById("page-letters-container").classList.add("col-lg-6");
-            document.getElementById("result").classList.add("col-lg-6");
-            showData(data);
-        }
-    }
+    function hideAuthorLetter(parentElementToHide) {
+        parentElementToHide.hide("slide", { direction: 'up' }, 500, function () {
+            $(parentElementToHide).parent().removeClass("col-lg-12");
 
-    function hideAuthorLetter() {
-        $("#result").hide("slide", { direction: 'right' }, 500,
-        function () {
-            document.getElementById("page-letters-container").classList.remove("col-lg-6");
-            document.getElementById("result").classList.remove("col-lg-6");
+            $(parentElementToHide).siblings(".item-letter-with-link").show("slide", { direction: 'up' }, 500);
         });
     }
 </script>
@@ -49,31 +41,38 @@
         </div>
     }
 
-    @foreach (Letter l in Model.Letters)
+    @for (int i = 0; i < Model.Letters.Count; i++)
     {
-        <div class="item-letter-container w3-card-2">
-            <div class="item-letter">
-                @if (l.Content.Length <= 200)
+        <div class="item-letter-container w3-card-2" id="id-to-replace">
+            <script>
+                $("#id-to-replace").attr('id', (gLettersCounter).toString());
+            </script>
+            <div class="item-letter-with-link">
+                <div class="item-letter">
+                    @if (Model.Letters[i].Content.Length <= 200)
                 {
-                    @l.Content
-                }
-                else
-                {
-                    @(l.Content.Substring(0, 200) + "...")
+                        @Model.Letters[i].Content
+                    }
+                    else
+                    {
+                        @(Model.Letters[i].Content.Substring(0, 200) + "...")
+                    }
+                </div>
+                @{
+                    var lnk = Ajax.ActionLink("T", "ViewLetter", "Letters", new { id = Model.Letters[i].LetterId }, new AjaxOptions
+                    {
+                        OnSuccess = "onSuccess(data, 'result-" + i + "', xhr)"
+                    }, new { @class = "btn btn-success" });
+                    @Html.Raw(lnk.ToString().Replace(">T<", "><span class='glyphicon glyphicon-resize-full'/><"));
                 }
             </div>
-            <br />
-            @{
-                var lnk = Ajax.ActionLink("T", "ViewLetter", "Letters", new { id = l.LetterId }, new AjaxOptions
-                {
-                    OnSuccess = "onSuccess"
-                }, new { @class = "btn btn-success btn-circle" });
-                @Html.Raw(lnk.ToString().Replace(">T<", "><span class='glyphicon glyphicon-eye-open'/><"));
-            }
+            <div id="result" class="showablePart">
+            </div>
+            <script>
+                $("#result").attr('id', 'result-' + (gLettersCounter++).toString());
+            </script>
         </div>
     }
-</div>
-<div id="result">
 </div>
 <div class="btn-group">
     @Html.PageLinks(Model.PageInfo, x => Url.Action("AllLetters", new { page = x + 1 }))

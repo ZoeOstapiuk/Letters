@@ -27,7 +27,7 @@ namespace Letters.Controllers
             IndexViewModel ivm = new IndexViewModel
             {
                 PageInfo = pageInfo,
-                Letters = letters
+                Letters = letters.ToList()
             };
             return View(ivm);
         }
