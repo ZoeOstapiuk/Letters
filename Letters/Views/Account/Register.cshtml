@@ -1,0 +1,48 @@
+﻿@model Letters.Models.RegisterModel
+
+@{
+    ViewBag.Title = "Register";
+}
+
+@if (TempData["register-errors"] != null)
+{
+    <div class="alert-santa-reply text-danger w3-card-2">
+        <div class="w3-show-inline-block">
+            @foreach (string error in (System.Collections.Generic.IList<string>)TempData["register-errors"])
+            {
+                <div>@error</div>
+            }
+        </div>
+        <a onclick="hideAlert()" class="right"><span class="glyphicon glyphicon-remove" /></a>
+    </div>
+}
+
+<div>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="w3-card-4 form-card">
+            <div class="w3-container w3-green">
+                <h2>Your info</h2>
+            </div>
+            <div style="padding: 20px;">
+                <p>
+                    @Html.TextBox("Email", "", new { @class = "w3-input w3-border w3-round-xxlarge input-field", placeholder = "Enter your email..." })
+                    <label>Email<sup>*</sup></label>
+                    @Html.ValidationMessage("Email")
+                </p>
+                <p>
+                    @Html.TextBox("Password", "", new { @class = "w3-input w3-border w3-round-xxlarge input-field", placeholder = "Enter password..." })
+                    <label>Password<sup>*</sup></label>
+                    @Html.ValidationMessage("Password")
+                </p>
+                <p>
+                    @Html.TextBox("PasswordConfirm", "", new { @class = "w3-input w3-border w3-round-xxlarge input-field", placeholder = "Repeat password..." })
+                    <label>Confirm password<sup>*</sup></label>
+                    @Html.ValidationMessage("PasswordConfirm")
+                </p>
+            </div>
+            <button class="btn btn-success" type="submit">Register me!</button>
+        </div>
+    }
+</div>

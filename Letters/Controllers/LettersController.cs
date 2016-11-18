@@ -8,20 +8,15 @@ using System.Web.Mvc;
 
 namespace Letters.Controllers
 {
-    public class LettersController : Controller
+   /* public class LettersController : Controller
     {
         public ActionResult CreateLetterWithAuthor()
         {
-            LetterAuthorView view = new LetterAuthorView
-            {
-                Letter = new Letter(),
-                Author = new Author()
-            };
-            return View(view);
+            return View();
         }
 
         [HttpPost]
-        public ActionResult CreateLetterWithAuthor(LetterAuthorView viewModel)
+        public ActionResult CreateLetterWithAuthor(LetterAuthorModel viewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -150,7 +145,7 @@ namespace Letters.Controllers
                 return HttpNotFound();
             }
 
-            return PartialView("ReadonlyLetter", new LetterAuthorView { Letter = letter, Author = author });
+            return PartialView("ReadonlyLetter", new LetterAuthorModel { Letter = letter, Author = author });
         }
-    }
+    }*/
 }

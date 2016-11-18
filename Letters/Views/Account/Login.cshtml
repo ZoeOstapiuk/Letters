@@ -1,0 +1,32 @@
+﻿@model Letters.Models.LoginModel
+
+@{
+    ViewBag.Title = "Login";
+}
+
+<div>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="w3-card-4 form-card">
+            <div class="w3-container w3-green">
+                <h2>Login</h2>
+            </div>
+            <div style="padding: 20px;">
+                @Html.Hidden("returnUrl", (string)ViewBag.returnUrl)
+                <p>
+                    @Html.TextBox("Email", "", new { @class = "w3-input w3-border w3-round-xxlarge input-field", placeholder = "Enter your email..." })
+                    <label>Email<sup>*</sup></label>
+                    @Html.ValidationMessage("Email")
+                </p>
+                <p>
+                    @Html.TextBox("Password", "", new { @class = "w3-input w3-border w3-round-xxlarge input-field", placeholder = "Enter password..." })
+                    <label>Password<sup>*</sup></label>
+                    @Html.ValidationMessage("Password")
+                </p>
+            </div>
+            <button class="btn btn-success" type="submit">Submit</button>
+        </div>
+    }
+</div>
+

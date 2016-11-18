@@ -18,13 +18,18 @@ namespace Letters.Controllers
         {
             IEnumerable<Letter> letters;
             PageInfo pageInfo = new PageInfo { PageNumber = page, PageSize = ITEMS_PER_PAGE };
-            using (SantaDbContext ctx = new SantaDbContext())
+            using (ApplicationContext ctx = new ApplicationContext())
             {
-                letters = ctx.Letters.OrderBy(l => l.LetterId).Skip((page - 1) * ITEMS_PER_PAGE).Take(ITEMS_PER_PAGE).ToList();
-                pageInfo.TotalItems = ctx.Letters.Count();
+                letters = ctx.Users
+                    .SelectMany(u => u.Letters)
+                    .OrderBy(l => l.LetterId)
+                    .Skip((page - 1) * ITEMS_PER_PAGE)
+                    .Take(ITEMS_PER_PAGE).ToList();
+
+                pageInfo.TotalItems = letters.Count();
             }
 
-            IndexViewModel ivm = new IndexViewModel
+            PaginationViewModel ivm = new PaginationViewModel
             {
                 PageInfo = pageInfo,
                 Letters = letters.ToList()

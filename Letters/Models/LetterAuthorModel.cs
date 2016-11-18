@@ -5,10 +5,10 @@ using System.Web;
 
 namespace Letters.Models
 {
-    public class LetterAuthorView
+    public class LetterAuthorModel
     {
         public Letter Letter { get; set; }
 
-        public Author Author { get; set; }
+        public ApplicationUser Author { get; set; }
     }
 }

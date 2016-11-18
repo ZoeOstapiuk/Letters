@@ -13,6 +13,6 @@ namespace Letters.Models
         [Required(ErrorMessage = "Write something!")]
         public string Content { get; set; }
         
-        public virtual Author Author { get; set; }
+        public virtual ApplicationUser Author { get; set; }
     }
 }

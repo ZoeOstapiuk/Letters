@@ -25,7 +25,7 @@ namespace Letters.Models
         }
     }
 
-    public class IndexViewModel
+    public class PaginationViewModel
     {
         public IList<Letter> Letters { get; set; }
 

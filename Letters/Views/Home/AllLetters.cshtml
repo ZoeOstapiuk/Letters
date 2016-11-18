@@ -1,7 +1,7 @@
 ﻿@using Letters.Models
 @using Letters.Helpers
 
-@model IndexViewModel
+@model PaginationViewModel
 
 <script type="text/javascript">
     var gLettersCounter = 0;
@@ -34,14 +34,6 @@
 </script>
 <div class="outer-page-letters-container">
     <div class="page-letters-container">
-        @if (TempData["message"] != null)
-        {
-            <div id="alert-santa-reply" class="w3-round-xxlarge w3-transparent w3-card-8" style="margin: 20px;">
-                <div style="display: inline-block" class="w3-panel">@TempData["message"]</div>
-                <a onclick="hideAlert()"><span class="glyphicon glyphicon-remove" /></a>
-            </div>
-        }
-
         @for (int i = 0; i < Model.Letters.Count; i++)
         {
             <div class="item-letter-container w3-card-2" id="id-to-replace">

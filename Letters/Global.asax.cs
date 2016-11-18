@@ -15,7 +15,6 @@ namespace Letters
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            Database.SetInitializer<SantaDbContext>(new SantaDbInitializer());
         }
     }
 }

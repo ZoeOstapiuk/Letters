@@ -1,8 +1,6 @@
-﻿@model Letters.Models.Author
-
-@{
+﻿@{
     ViewBag.Title = "Welcome";
 }
 
 <h1 class="welcome-text">Write a letter to Santa!</h1>
-@Html.ActionLink("New letter", "CreateLetterWithAuthor", "Letters", null, new { @class = "welcome-text, w3-btn w3-hover-green" })
+@Html.ActionLink("Register", "Register", "Account", null, new { @class = "w3-btn w3-hover-green" })
