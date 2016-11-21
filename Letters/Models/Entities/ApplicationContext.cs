@@ -10,6 +10,11 @@ namespace Letters.Models
 {
     public class ApplicationContext : IdentityDbContext<ApplicationUser>
     {
+        static ApplicationContext()
+        {
+            Database.SetInitializer<ApplicationContext>(new DropCreateDatabaseIfModelChanges<ApplicationContext>());
+        }
+
         public ApplicationContext() : base("SantaIdentityDb") { }
         
         public static ApplicationContext Create()

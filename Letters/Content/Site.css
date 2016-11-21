@@ -7,7 +7,7 @@ textarea.letter-sheet {
     margin: 25px;
     min-width: 200px;
     width: 90%;
-    min-height: 300px;
+    min-height: 200px;
     resize: none;
 }
 
@@ -107,4 +107,9 @@ footer {
     display: inline-block;
     padding: 10px;
     vertical-align: top;
+}
+
+.login-card {
+    display: inline-block;
+    margin: auto;
 }

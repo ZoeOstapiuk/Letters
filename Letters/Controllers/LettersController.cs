@@ -34,55 +34,21 @@ namespace Letters.Controllers
         {
             if (!ModelState.IsValid)
             {
-                // If smth is wrong go back
                 return View(content);
             }
 
             ApplicationUser user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
-            user.Letters.Add(new Letter { Content = content.Letter });
+            Debug.WriteLine(user == null);
+            user.Letters.Add(new Letter
+            {
+                Content = content.Letter,
+                DateTimeCreation = DateTime.Now
+            });
             await UserManager.UpdateAsync(user);
             
             return RedirectToAction("AllLetters", "Home");
         }
 /*
-        public ActionResult EditLetter(int? id)
-        {
-            if (!id.HasValue)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
-            Letter letter;
-            using (SantaDbContext ctx = new SantaDbContext())
-            {
-                letter = ctx.Letters.Find(id.Value);
-            }
-
-            if (letter == null)
-            {
-                return HttpNotFound();
-            }
-
-            return View("EditView", letter);
-        }
-
-        [HttpPost]
-        public ActionResult EditLetter(Letter letter)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(letter);
-            }
-
-            using (SantaDbContext ctx = new SantaDbContext())
-            {
-                ctx.Letters.Find(letter.LetterId).Content = letter.Content;
-                ctx.SaveChanges();
-            }
-
-            return RedirectToAction("AllAuthors", "Home");
-        }
-
         public ActionResult DeleteLetter(int? id)
         {
             if (!id.HasValue)
@@ -136,7 +102,12 @@ namespace Letters.Controllers
                 return HttpNotFound();
             }
 
-            return PartialView("ReadLetter", new LetterAuthorModel { Letter = letter.Content, Email = email });
+            return PartialView("ReadLetter", new LetterAuthorModel
+            {
+                Letter = letter.Content,
+                Email = email,
+                Date = letter.DateTimeCreation
+            });
         }
     }
 }

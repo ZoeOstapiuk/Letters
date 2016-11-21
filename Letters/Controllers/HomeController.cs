@@ -26,7 +26,9 @@ namespace Letters.Controllers
                     .Skip((page - 1) * ITEMS_PER_PAGE)
                     .Take(ITEMS_PER_PAGE).ToList();
 
-                pageInfo.TotalItems = letters.Count();
+                pageInfo.TotalItems = ctx.Users
+                    .SelectMany(u => u.Letters)
+                    .Count();
             }
 
             PaginationViewModel ivm = new PaginationViewModel

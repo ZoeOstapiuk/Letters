@@ -27,7 +27,6 @@
     function hideAuthorLetter(parentElementToHide) {
         parentElementToHide.hide("slide", { direction: 'up' }, 500, function () {
             $(parentElementToHide).parent().removeClass("col-lg-12");
-
             $(parentElementToHide).siblings(".item-letter-with-link").show("slide", { direction: 'up' }, 500);
         });
     }
@@ -43,7 +42,7 @@
                 <div class="item-letter-with-link">
                     <div class="item-letter">
                         @if (Model.Letters[i].Content.Length <= 200)
-                {
+                        {
                             @Model.Letters[i].Content
                         }
                         else
