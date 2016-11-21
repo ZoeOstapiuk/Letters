@@ -1,59 +1,50 @@
 ﻿
 using Letters.Infrastructure;
 using Letters.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Net;
 using System.Net.Mail;
+using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 
 namespace Letters.Controllers
 {
-   /* public class LettersController : Controller
+    public class LettersController : Controller
     {
-        public ActionResult CreateLetterWithAuthor()
+        private ApplicationUserManager UserManager
+        {
+            get
+            {
+                return HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+        }
+
+        public ActionResult CreateLetter()
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult CreateLetterWithAuthor(LetterAuthorModel viewModel)
+        public async Task<ActionResult> CreateLetter(LetterModel content)
         {
             if (!ModelState.IsValid)
             {
                 // If smth is wrong go back
-                return View(viewModel);
+                return View(content);
             }
 
-            if (viewModel.Author == null || viewModel.Letter == null)
-            {
-                return View("~/Views/Home/Index");
-            }
-
-            try
-            {
-                TempMailSender.SendTo(viewModel.Author.Email, "YOU SEND A LETTER TO SANTA",
-                    "Check other emails: <a>" + Url.Action("AllLetters", "Home") + "</a>");
-            }
-            catch
-            {
-                TempData["mail-error"] = "The email you entered is not valid or does not exist! We couldn't send you anything!";
-                return View(viewModel);
-            }
-
-            using (SantaDbContext ctx = new SantaDbContext())
-            {
-                viewModel.Author.Letters.Add(viewModel.Letter);
-                viewModel.Letter.Author = viewModel.Author;
-
-                // Author is added automatically
-                ctx.Letters.Add(viewModel.Letter);
-                ctx.SaveChanges();
-            }
-
-            TempData["message"] = "A message was sent to your email!\nSanta will check your behavior ASAP!";
+            ApplicationUser user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+            user.Letters.Add(new Letter { Content = content.Letter });
+            await UserManager.UpdateAsync(user);
+            
             return RedirectToAction("AllLetters", "Home");
         }
-
+/*
         public ActionResult EditLetter(int? id)
         {
             if (!id.HasValue)
@@ -124,28 +115,28 @@ namespace Letters.Controllers
 
             return RedirectToAction("AllAuthors", "Home");
         }
-        
-        public ActionResult ViewLetter(int? id)
+        */
+        public ActionResult ReadLetter(int? id)
         {
             if (!id.HasValue)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Letter letter = null;
-            Author author = null;
-            using (SantaDbContext ctx = new SantaDbContext())
+            Letter letter = new Letter();
+            string email = String.Empty;
+            using (ApplicationContext ctx = new ApplicationContext())
             {
-                letter = ctx.Letters.Find(id.Value);
-                author = letter.Author;
+                letter = ctx.Users.SelectMany(u => u.Letters).FirstOrDefault(u => u.LetterId == id.Value);
+                email = letter.Author.Email;
             }
 
-            if (letter == null || author == null)
+            if (letter == null)
             {
                 return HttpNotFound();
             }
 
-            return PartialView("ReadonlyLetter", new LetterAuthorModel { Letter = letter, Author = author });
+            return PartialView("ReadLetter", new LetterAuthorModel { Letter = letter.Content, Email = email });
         }
-    }*/
+    }
 }

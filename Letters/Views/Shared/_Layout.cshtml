@@ -41,6 +41,7 @@
                 <li class="w3-text-white w3-margin">@User.Identity.Name</li>
                 @if (!System.String.IsNullOrEmpty(@User.Identity.Name))
                 {
+                    <li>@Html.ActionLink("Write letter", "CreateLetter", "Letters")</li>
                     <li>@Html.ActionLink("Logout", "Logout", "Account", null, new { returnUrl = @Request.Url.AbsoluteUri })</li>
                 }
                 else

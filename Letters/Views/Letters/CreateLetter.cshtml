@@ -1,0 +1,25 @@
+﻿@model Letters.Models.LetterModel
+
+@{
+    ViewBag.Title = "Write a letter to Santa";
+}
+
+<div class="w3-container">
+    @using (Html.BeginForm("CreateLetter"))
+    {
+        <div class="col-lg-12 w3-margin" style="margin: auto">
+            <div class="w3-card-4 table-for-letter">
+                <div class="w3-container w3-green w3-round-xxlarge">
+                    <h2>Dear Santa...</h2>
+                </div>
+                <div>
+                    @Html.TextAreaFor(m => m.Letter, new { @class = "letter-sheet", placeholder = "This whole year I tried to be good..." })
+                    <br />
+                    @Html.ValidationMessageFor(m => m.Letter)
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="w3-btn w3-hover-green">Send</button>
+    }
+</div>
+

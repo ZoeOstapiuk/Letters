@@ -216,6 +216,7 @@
     <Compile Include="Models\Entities\ApplicationUserManager.cs" />
     <Compile Include="Models\Entities\Letter.cs" />
     <Compile Include="Models\LetterAuthorModel.cs" />
+    <Compile Include="Models\LetterModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\PaginationInfo.cs" />
     <Compile Include="Models\RegisterModel.cs" />
@@ -237,10 +238,10 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Home\AllLetters.cshtml" />
-    <Content Include="Views\Letters\CreateLetterWithAuthor.cshtml" />
+    <Content Include="Views\Letters\CreateLetter.cshtml" />
     <Content Include="Views\Letters\EditView.cshtml" />
     <Content Include="Views\Letters\DeleteLetter.cshtml" />
-    <Content Include="Views\Letters\ReadonlyLetter.cshtml" />
+    <Content Include="Views\Letters\ReadLetter.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <None Include="Web.Debug.config">

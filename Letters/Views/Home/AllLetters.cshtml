@@ -52,7 +52,7 @@
                         }
                     </div>
                     @{
-                        var lnk = Ajax.ActionLink("T", "ViewLetter", "Letters", new { id = Model.Letters[i].LetterId }, new AjaxOptions
+                        var lnk = Ajax.ActionLink("T", "ReadLetter", "Letters", new { id = Model.Letters[i].LetterId }, new AjaxOptions
                         {
                             OnSuccess = "onSuccess(data, 'result-" + i + "', xhr)"
                         }, new { @class = "btn btn-success" });
