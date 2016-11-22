@@ -1,7 +1,16 @@
 ﻿@model Letters.Models.LetterAuthorModel
 
 <div class="letter-author-container">
-    <div class="text-right w3-margin"><button class="btn btn-danger" onclick="hideAuthorLetter($(this).parents('.showablePart'))"><span class="glyphicon glyphicon-resize-small" /></button></div>
+    <div class="container">
+        <div style="float: right; display: inline-block" class="w3-margin"><button class="btn btn-danger" onclick="hideAuthorLetter($(this).parents('.showablePart'))"><span class="glyphicon glyphicon-resize-small" /></button></div>
+        @if (DateTime.Now.AddDays(-1).CompareTo(Model.Date) < 0)
+        {
+            using (Html.BeginForm("DeleteLetter", "Letters", new { id = Model.LetterId, page = 1 }))
+            {
+                <div style = "float: left; display: inline-block" class="w3-margin"><button class="btn btn-danger" type="submit"><span class="glyphicon glyphicon-remove" /></button></div>
+            }
+        }
+    </div>    
     <div>
         <div>
             <div class="container w3-green">
@@ -14,7 +23,6 @@
             </div>
         </div>
         <div class="w3-card-4 table-for-letter">
-            @Html.ValueFor(m => m.Date)
             <div>
                 @Html.TextAreaFor(m => m.Letter, new { @class = "letter-sheet", @readonly = "readonly" })
             </div>

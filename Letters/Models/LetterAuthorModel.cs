@@ -14,6 +14,8 @@ namespace Letters.Models
         
         public string Letter { get; set; }
 
+        public int LetterId { get; set; }
+
         public DateTime Date { get; set; }
     }
 }

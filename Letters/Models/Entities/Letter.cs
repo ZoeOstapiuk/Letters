@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -13,8 +14,10 @@ namespace Letters.Models
 
         [Required(ErrorMessage = "Write something!")]
         public string Content { get; set; }
-        
-        public virtual ApplicationUser Author { get; set; }
+
+        public string ApplicationUserId { get; set; }
+
+        public virtual ApplicationUser ApplicationUser { get; set; }
 
         public DateTime DateTimeCreation { get; set; }
     }

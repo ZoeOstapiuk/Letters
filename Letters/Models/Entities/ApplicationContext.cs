@@ -26,7 +26,8 @@ namespace Letters.Models
         {
             modelBuilder.Entity<ApplicationUser>()
                 .HasMany(u => u.Letters)
-                .WithRequired(l => l.Author)
+                .WithOptional(l => l.ApplicationUser)
+                .HasForeignKey(l => l.ApplicationUserId)
                 .WillCascadeOnDelete(true);
 
             base.OnModelCreating(modelBuilder);

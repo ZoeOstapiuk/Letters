@@ -45,7 +45,8 @@ namespace Letters.Controllers
                 DateTimeCreation = DateTime.Now
             });
             await UserManager.UpdateAsync(user);
-            
+
+            TempData["one-day-warning"] = "You have one day to cancel the letter";
             return RedirectToAction("AllLetters", "Home");
         }
 /*
@@ -69,19 +70,25 @@ namespace Letters.Controllers
 
             return View("DeleteLetter", letter);
         }
-
-        [HttpPost]
-        public ActionResult DeleteLetter(int id)
-        {
-            using (SantaDbContext ctx = new SantaDbContext())
-            {
-                ctx.Letters.Remove(ctx.Letters.Find(id));
-                ctx.SaveChanges();
-            }
-
-            return RedirectToAction("AllAuthors", "Home");
-        }
         */
+        [HttpPost]
+        public async Task<ActionResult> DeleteLetter(int id, int page)
+        {
+            ApplicationUser user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+            Letter letter = user.Letters
+                                .Where(l => l.LetterId == id)
+                                .FirstOrDefault();
+            if (letter == null)
+            {
+                return HttpNotFound();
+            }
+            
+            user.Letters.Remove(letter);
+            await UserManager.UpdateAsync(user);
+
+            return RedirectToAction("AllLetters", "Home", new { page = page });
+        }
+        
         public ActionResult ReadLetter(int? id)
         {
             if (!id.HasValue)
@@ -94,7 +101,7 @@ namespace Letters.Controllers
             using (ApplicationContext ctx = new ApplicationContext())
             {
                 letter = ctx.Users.SelectMany(u => u.Letters).FirstOrDefault(u => u.LetterId == id.Value);
-                email = letter.Author.Email;
+                email = letter.ApplicationUser.Email;
             }
 
             if (letter == null)
@@ -106,7 +113,8 @@ namespace Letters.Controllers
             {
                 Letter = letter.Content,
                 Email = email,
-                Date = letter.DateTimeCreation
+                Date = letter.DateTimeCreation,
+                LetterId = letter.LetterId
             });
         }
     }
