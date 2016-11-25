@@ -12,5 +12,9 @@ namespace Letters.Models
     {
         [Required]
         public string Letter { get; set; }
+
+        public int LetterId { get; set; }
+
+        public int LetterPage { get; set; }
     }
 }

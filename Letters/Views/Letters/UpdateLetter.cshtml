@@ -1,0 +1,19 @@
+﻿@model Letters.Models.LetterModel
+
+@{
+    ViewBag.Title = "Change letter";
+}
+
+<div class="letter-author-container">
+    <div class="w3-card-4 table-for-letter">
+        @using (Html.BeginForm("UpdateLetterConfirmed", "Letters", FormMethod.Post))
+        {
+            @Html.HiddenFor(m => m.LetterPage)
+            @Html.HiddenFor(m => m.LetterId)
+            @Html.TextAreaFor(m => m.Letter, new { @class = "letter-sheet", placeholder = "This whole year I tried to be good..." })
+            @Html.ValidationMessageFor(m => m.Letter)
+            <button type="submit" class="btn btn-success">Change it!</button>
+        }
+    </div>
+</div>
+

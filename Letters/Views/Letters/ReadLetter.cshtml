@@ -1,14 +1,26 @@
-﻿@model Letters.Models.LetterAuthorModel
+﻿@using Microsoft.AspNet.Identity
+@model Letters.Models.LetterAuthorModel
 
 <div class="letter-author-container">
     <div class="container">
-        <div style="float: right; display: inline-block" class="w3-margin"><button class="btn btn-danger" onclick="hideAuthorLetter($(this).parents('.showablePart'))"><span class="glyphicon glyphicon-resize-small" /></button></div>
-        @if (DateTime.Now.AddDays(-1).CompareTo(Model.Date) < 0)
+        <div style="float: right; display: inline-block" class="w3-margin"><button class="btn btn-primary" onclick="hideAuthorLetter($(this).parents('.showablePart'))"><span class="glyphicon glyphicon-resize-small" /></button></div>
+        @if (DateTime.Now.AddDays(-1).CompareTo(Model.Date) < 0 && User.Identity.GetUserId() == Model.AuthorId)
         {
-            using (Html.BeginForm("DeleteLetter", "Letters", new { id = Model.LetterId, page = 1 }))
-            {
-                <div style = "float: left; display: inline-block" class="w3-margin"><button class="btn btn-danger" type="submit"><span class="glyphicon glyphicon-remove" /></button></div>
-            }
+            <div style="float: left; display: inline-block">
+                @using (Html.BeginForm("DeleteLetter", "Letters", new { id = Model.LetterId, page = 1 }, FormMethod.Post, new { style = "display: inline-block", @class = "w3-margin" }))
+                {
+                    <button class="btn btn-danger" type="submit"><span class="glyphicon glyphicon-remove" /></button>            
+                }
+                @using (Html.BeginForm("UpdateLetter", "Letters", new { id = Model.LetterId, page = 1 }, FormMethod.Post, new { style = "display: inline-block", @class = "w3-margin" }))
+                {
+                    <button class="btn btn-warning" type="submit"><span class="glyphicon glyphicon-pencil" /></button> 
+                }
+                Quick! I changed my mind!
+            </div>
+        }
+        else if (User.Identity.GetUserId() == Model.AuthorId)
+        {
+            <div style="float: left; display: inline-block" class="w3-margin">Sent :) Can't edit anymore!</div>
         }
     </div>    
     <div>

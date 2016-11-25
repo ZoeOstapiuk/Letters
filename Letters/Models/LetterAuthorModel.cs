@@ -11,6 +11,8 @@ namespace Letters.Models
     public class LetterAuthorModel
     {
         public string Email { get; set; }
+
+        public string AuthorId { get; set; }
         
         public string Letter { get; set; }
 
